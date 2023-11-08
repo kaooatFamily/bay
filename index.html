@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate QRCode</title>
+<style>
+.container {
+	-webkit-animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+font-family: 'Mali', cursive;
+border-radius: 20px;
+        background-color: #ffffff; /* กำหนดสีพื้นหลังของกล่อง */
+        padding: 20px; /* กำหนดระยะห่างภายในกล่อง */
+        border: 2px solid #1E90FF; /* กำหนดเส้นขอบของกล่อง */
+box-shadow: 0px 0px 35px #1E90FF;
+  transition: box-shadow 0.2s ease-in-out;
+      }
+      .kio {
+width: 200px;
+margin: 0 20px;
+text-decoration:none;
+font-family: 'Mali', cursive;
+  padding: 10px 20px;
+  font-size: 19px;
+  color: #FFF;
+  background-color: #1E90FF;
+  border: none;
+  border-radius: 46px;
+  box-shadow: 0px 0px 14px #1E90FF;
+  transition: box-shadow 0.2s ease-in-out;
+-webkit-animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+ .kio2 {
+width: 200px;
+margin: 0 20px;
+text-decoration:none;
+font-family: 'Mali', cursive;
+  padding: 10px 20px;
+  font-size: 19px;
+  color: #000;
+  background-color: #FFF;
+  border: none;
+  border-radius: 46px;
+  box-shadow: 0px 0px 14px #1E90FF;
+  transition: box-shadow 0.2s ease-in-out;
+-webkit-animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand-fwd-bottom 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+.dc{
+color:#fff;
+font-color:#fff;
+}
+</style>
+</head>
+
+<body>
+    <div class="container">
+    <div>
+        <input class="kio2" type="text" id="amount" placeholder="จำนวนเงิน">
+        <p class="dc">__</p>
+        <button class="kio" onclick="genQR()">สร้าง</button>
+    </div>
+    <img id="imgqr" src="" style="width: 500px; object-fit: contain;">
+     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        function genQR() {
+            $.ajax({
+                method: 'post',
+                url: 'http://localhost:3000/generateQR',
+                data: {
+                    amount: parseFloat($("#amount").val())
+                },
+                success: function(response) {
+                    console.log('good', response)
+                    $("#imgqr").attr('src', response.Result)
+                }, error: function(err) {
+                    console.log('bad', err)
+                }
+            })
+        }
+    </script>
+    
+</body>
+</html>
